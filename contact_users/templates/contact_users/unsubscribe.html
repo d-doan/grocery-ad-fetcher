@@ -1,5 +1,10 @@
-<html>
-  <body>
-    <h1>Unsubscribe.html page</h1>
-  </body>
-</html>
+{% extends 'contact_users/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+  <h1>Unsubscribe Page</h1>
+  {% crispy form %}
+
+  
+{% endblock %}

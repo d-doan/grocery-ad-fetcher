@@ -1,15 +1,9 @@
-from http.client import HTTPResponse
-from urllib import request
-from django.shortcuts import render
 from django.views.generic import FormView, TemplateView
-from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.template import loader
 
 from datetime import date, timedelta
-from .forms import UserPreferences
+from .forms import Unsubscription, UserPreferences
 
-# Create your views here.
 
 class ContactView(FormView):
     template_name = 'contact_users/contact.html'
@@ -23,8 +17,13 @@ class ContactView(FormView):
 class SuccessView(TemplateView):
     template_name = 'contact_users/success.html'
 
-class UnsubscribeView(TemplateView):
+class UnsubscribeView(FormView):
     template_name = 'contact_users/unsubscribe.html'
+    form_class = Unsubscription
+    success_url = reverse_lazy('contact_users:unsub_success')
+    
+class UnsubSuccessView(TemplateView):
+    template_name = 'contact_users/unsub_success.html'
     
 class WeeklyAdView(TemplateView):
     template_name = 'contact_users/weekly_ads.html'

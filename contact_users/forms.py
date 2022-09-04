@@ -9,9 +9,7 @@ class UserPreferences(forms.Form):
     
     ralphs = forms.BooleanField(required=False)
     hmart = forms.BooleanField(required=False)
-    email = forms.EmailField()
-    weekly_reminder = forms.BooleanField(required=False)
-    
+    email = forms.EmailField(required=True)    
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -23,27 +21,21 @@ class UserPreferences(forms.Form):
                 css_class='form-row'
             ),
             'email',
-            'weekly_reminder',
             Submit('submit', 'Submit')
-        )
-        
-    
+        )    
     
     def get_info(self):
-        
         cleaned_data = super().clean()
         
         user_ralphs = cleaned_data.get('ralphs')
         user_hmart = cleaned_data.get('hmart')
         user_email = cleaned_data.get('email')
-        user_weekly = cleaned_data.get('weekly_reminder')
         
-        return user_ralphs, user_hmart, user_email, user_weekly
+        return user_ralphs, user_hmart, user_email
         
     
     def send(self):
-    
-        ralphs, hmart, user_email, weekly = self.get_info()
+        ralphs, hmart, user_email = self.get_info()
         
         subject = str(date.today()) + " Grocery Stores Weekly Ads"
         msg = """Here are copies of this week's grocery ads.\n 
@@ -63,4 +55,14 @@ class UserPreferences(forms.Form):
             pref_email.attach_file('contact_users\\static\\contact_users\\Weekly_ads\\' + last_wednesday + '\\Ralphs.pdf')
             
         pref_email.send()
+
+class Unsubscription(forms.Form):
+    
+    email = forms.EmailField(required=True)
+    
+    def get_info(self):
+        clean_email = super().clean()
+        return clean_email.get('email')
+        
+    
         
