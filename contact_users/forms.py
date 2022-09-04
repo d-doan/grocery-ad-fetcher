@@ -58,9 +58,9 @@ class UserPreferences(forms.Form):
         pref_email = EmailMessage(subject, msg, settings.EMAIL_HOST_USER, [user_email])
         
         if hmart:
-            pref_email.attach_file('contact_users\\Weekly_ads\\' + last_wednesday + '\\Hmart.jpg')
+            pref_email.attach_file('contact_users\\static\\contact_users\\Weekly_ads\\' + last_wednesday + '\\Hmart.jpg')
         if ralphs:
-            pref_email.attach_file('contact_users\\Weekly_ads\\' + last_wednesday + '\\Ralphs.pdf')
+            pref_email.attach_file('contact_users\\static\\contact_users\\Weekly_ads\\' + last_wednesday + '\\Ralphs.pdf')
             
         pref_email.send()
         
