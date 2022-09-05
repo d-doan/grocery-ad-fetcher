@@ -60,6 +60,14 @@ class Unsubscription(forms.Form):
     
     email = forms.EmailField(required=True)
     
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'email',
+            Submit('submit','Submit')
+        )
+    
     def get_info(self):
         clean_email = super().clean()
         return clean_email.get('email')
