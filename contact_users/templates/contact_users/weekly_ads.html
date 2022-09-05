@@ -3,12 +3,12 @@
 
 {% block body %}
   
-  <div class="container-sm">
+    <h1 class="display-4">{{ ad_date_range }} Weekly Ads</h1>
+    <hr class="mt-4 mb-3"/>
     <h1>Hmart</h1>
     <img src="{% static hmart %}" class=img-fluid alt="hmart-ad">
-
+    <hr class="mt-5 mb-4"/>
     <h1>Ralphs</h1>
     <iframe src="{% static ralphs %}" width="100%" height="1000px"></iframe>
-  </div>
   
 {% endblock %}

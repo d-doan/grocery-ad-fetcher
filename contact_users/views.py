@@ -31,6 +31,9 @@ class WeeklyAdView(TemplateView):
     todays_date = date.today()
     date_offset = (todays_date.weekday() -2) % 7
     recent_ad = str(todays_date - timedelta(days=date_offset))
+    start_date = todays_date - timedelta(days=date_offset)
+    end_date = start_date + timedelta(days=6)
+    ad_date_range = start_date.strftime("%m/%d") + '-' + end_date.strftime("%m/%d")
     
     hmartPath = 'contact_users\\Weekly_ads' + '\\' + recent_ad + '\\Hmart.jpg'
     ralphsPath = 'contact_users\\Weekly_ads' + '\\' + recent_ad + '\\Ralphs.pdf'
@@ -39,5 +42,6 @@ class WeeklyAdView(TemplateView):
         context = super(WeeklyAdView, self).get_context_data(*args,**kwargs)
         context['hmart'] = self.hmartPath
         context['ralphs'] = self.ralphsPath
+        context['ad_date_range'] = self.ad_date_range
         return context
     
