@@ -1,12 +1,88 @@
 {% extends 'contact_users/base.html' %} 
 
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block body %}
   
-  <h1>Contact Page</h1>
-  {% crispy form %}
   <div class="container">
-    <a href="../unsubscribe/">Unsubscribe</a>
+    <div class="row">
+      <div class="col-sm-7">
+        <br>
+        <div class="text-left text-monospace">
+          <h1>Grocery-Ad Fetcher</h1>
+        </div>
+        <div class="text-left">
+          <p>&emsp;What is this? This web-application aims to streamline grocery shopping in the 21st century. 
+            It aims to do so through two main features: compiling grocery store advertisements each week while 
+            also maintaining a mailing list for a user's preferred stores.
+            <br><br>
+            &emsp;The advertisements can be found in the "Weekly-Ads" page located on the taskbar above. 
+            Whereas the signup for the mailing list can be found below, where each Wednesday you can receive a copy of
+            grocery ads of your choosing sent to your email.
+          </p>
+        </div>
+      </div>
+      <div class="col-sm-5">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-5">
+        <img src="{% static 'contact_users/mom_seattle.jpg' %}" alt="mom+me" class="img-fluid">
+      </div>
+      <div class="col-sm-7">
+        <div class="text-center text-monospace">
+          <h1>Inspiration</h1>
+        </div>
+        <div class="text-left">
+          <p>&emsp;Why a grocery-store webscraper? Strangely enough this project was the end result of an amalgamation of a broke college kid living on his own and his coupon-loving immigrant mother. 
+            During the past two years, she would come up to me and request my help in helping her download, create an account, and navigate various digital grocery store ads. 
+            <br>
+            &emsp;On the other hand, I began to cook for myself this year and underwent a frighting realization on how expensive food is. These two developments would lead me to the creation of this tool 
+            in hopes of making 21st century grocery shopping more accessible while also encouraging myself to budget out and plan my own meals.</p>
+        </div>
+        <div class="text-center">
+            <p>This project is dedicated to you Mẹ [mom] I hope it helps you out :)</p>
+        </div>
+        <br>
+      </div>
+    </div>
   </div>
+  <hr class="mt-4 mb-4"/>
+  <div class="container">
+    <h2>Weekly Mailing List</h2>
+    {% crispy form %}
+  </div>
+  <hr class="mt-4 mb-3"/>
+
+  <div class="container">
+    <h1 class="display-4">FAQ</h1>
+    <br>
+    <div class="row">
+      <div class="col-sm-4">
+        <h4>Questions</h4>
+        <ul class="list">
+          <ul>
+            <li>How do I change which grocery store ads I receive in my email?</li>
+            <br>
+            <li>I no longer want to be on the mailing list, how do I unsubscribe?</li>
+          </ul>
+        </ul>
+      </div>
+      <div class="col-sm-8">
+        <h4>Answers</h4>
+        <ul class="list-unstyled">
+          <ul>
+            <li>You can change your preferred grocery stores by refilling out the contact form above.
+                The new store choices will replace the current preferences.
+            </li>
+            <br>
+            <li>You can unsubscribe from the mailing list through this link: <a href="../unsubscribe/">Unsubscribe</a></li>
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </div>
+
 {% endblock %}
