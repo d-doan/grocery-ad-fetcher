@@ -1,9 +1,12 @@
 from django import forms
 from django.conf import settings
 from django.core.mail import send_mail, EmailMessage
+from django.utils import timezone
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
 from datetime import date, timedelta
+
+from .models import Preferences, Unsubscribe
 
 class UserPreferences(forms.Form):
     
@@ -45,19 +48,25 @@ class UserPreferences(forms.Form):
         todays_date = date.today()
         date_offset = (todays_date.weekday()-2) % 7
         last_wednesday = str(todays_date - timedelta(days=date_offset))
-
+        
+        if ralphs:
+            msg += "\n\nI apologize for the inconvenience but we are currently unable to send Ralphs advertisements through email. However, they are still located on the weekly-ad section of our webpage"
         
         pref_email = EmailMessage(subject, msg, settings.EMAIL_HOST_USER, [user_email])
         
         if hmart:
             pref_email.attach_file('contact_users\\static\\contact_users\\Weekly_ads\\' + last_wednesday + '\\Hmart.jpg')
-        if ralphs:
-            pref_email.attach_file('contact_users\\static\\contact_users\\Weekly_ads\\' + last_wednesday + '\\Ralphs.pdf')
+        #if ralphs:
             
         pref_email.send()
+        
+    def store(self):
+        ralphs, hmart, user_email = self.get_info()
+        present = timezone.now()
+        p = Preferences(ralphs=ralphs,hmart=hmart,user_email=user_email,time=present)
+        p.save()
 
 class Unsubscription(forms.Form):
-    
     email = forms.EmailField(required=True)
     
     def __init__(self, *args, **kwargs):
@@ -71,6 +80,10 @@ class Unsubscription(forms.Form):
     def get_info(self):
         clean_email = super().clean()
         return clean_email.get('email')
-        
+    
+    def unsub(self):
+        user_email = self.get_info()
+        u = Unsubscribe(user_email)
+        u.unsub()
     
         
